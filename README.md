@@ -1,36 +1,44 @@
-# Seed Frontend Homework
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
-As part of our application process, we'd like to see what you can produce by giving you a small assignment. It should take you no more than a few hours to complete the assignment, but any extra polish or features you might want to put in will not go unnoticed.
+## Available Scripts
 
-## The assignment
+In the project directory, you can run:
 
-We would like you to create an invoicing app. The features it should include:
+### `npm start`
 
- - [ ] Create a new invoice
- - [ ] Add line items to the invoice. Line items may include hours of work at a certain rate, work-related expenses, materials, labor, etc.
- - [ ] Add notes to the invoice, including possibly how to pay it, where to send checks, etc.
- - [ ] Send the invoice via email (does not have to actually send emails, but if it does, great!)
- - [ ] View invoices including status (paid, outstanding, late, etc.)
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Your backend can be anything, and does not have to work. If you would like to use a mocked-out interface, that is fine (even static data in code is ok).
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-#### Extra credit features
+### `npm test`
 
- - [ ] Add a due date to an invoice
- - [ ] View late invoices, or even better, alert when an invoice is late
- - [ ] Polish and UX
- - [ ] Highly reusable components
- - [ ] Tests
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Requirements
+### `npm run build`
 
-You should use the following tools to accomplish this task:
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
- - React
- - Flux
- - Webpack (should run with webpack-dev-server)
- - Babel - ES6/7 Syntax - you pick the stages
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-If you have any questions, please ask!
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-To complete your homework, please fork this repo and commit your work to your fork. When you are ready for us to look at it, give us access to your fork so we can review and run it.
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
