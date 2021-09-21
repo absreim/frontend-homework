@@ -5,7 +5,8 @@ export type InvoiceLineItem = {
 }
 
 export type InvoiceAddDto = {
-    notes: string
+    title: string,
+    notes: string,
     lineItems: InvoiceLineItem[]
 }
 

@@ -4,11 +4,10 @@ import './index.css';
 import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
+import { worker } from './mockServer/browser';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-if (process.env.NODE_ENV === 'development') {
-    const { worker } = require('./mockServer/browser');
-    worker.start();
-}
+worker.start();
 
 ReactDOM.render(
     <React.StrictMode>
