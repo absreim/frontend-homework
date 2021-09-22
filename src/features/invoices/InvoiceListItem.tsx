@@ -1,18 +1,20 @@
 import React from 'react';
-import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Badge } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Badge, Button } from 'reactstrap';
 
 import { Invoice } from './invoiceTypes';
 
 type InvoiceListItemProps = {
-    invoice: Invoice
+    active: boolean,
+    invoice: Invoice,
+    clickCallback: () => void
 };
 
-function InvoiceListItem({ invoice }: InvoiceListItemProps) {
+function InvoiceListItem({ invoice, clickCallback, active }: InvoiceListItemProps) {
     return (
         <ListGroupItem
-            tag={Link}
-            to={`/${invoice.id}`}
+            active={active}
+            tag={Button}
+            onClick={clickCallback}
         >
             <ListGroupItemHeading>
                 {invoice.title}

@@ -35,7 +35,7 @@ const handlers = [
         return res(ctx.status(201), ctx.json(createdInvoice));
     }),
     rest.put('/api/invoices/:id', async (req, res, ctx) => {
-        const invoice = await invoiceTable.setItem(req.params.id, req.params.body);
+        const invoice = await invoiceTable.setItem(req.params.id, req.body);
         return res(ctx.status(200), ctx.json(invoice));
     }),
     rest.delete('/api/invoices/:id', async (req, res, ctx) => {
