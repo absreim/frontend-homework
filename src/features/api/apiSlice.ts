@@ -36,7 +36,10 @@ export const apiSlice = createApi({
                 { type: 'Invoices' as const, id: arg.id }]
         }),
         deleteInvoice: builder.mutation<void, string>({
-            query: (id) => `invoices/${id}`,
+            query: (id) => ({
+                url: `invoices/${id}`,
+                method: 'DELETE'
+            }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'Invoices' as const, id: arg }]
         })

@@ -202,7 +202,7 @@ function EditInvoice() {
                                         <Button
                                             onClick={() => history.push('/')}
                                         >
-                                            Cancel
+                                            Back
                                         </Button>
                                         <Button
                                             className="ml-2"

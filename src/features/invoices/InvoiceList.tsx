@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Spinner, Alert, ListGroup, Button } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 
-import { useGetInvoicesQuery } from '../api/apiSlice';
+import { useGetInvoicesQuery, useDeleteInvoiceMutation } from '../api/apiSlice';
 import InvoiceListItem from './InvoiceListItem';
 
 function InvoiceList() {
@@ -15,6 +15,8 @@ function InvoiceList() {
         isLoading,
         isError
     } = useGetInvoicesQuery();
+
+    const [deleteInvoice, { isLoading: deletePending }] = useDeleteInvoiceMutation();
 
     const selectedInList = invoices.findIndex(({ id }) => id === selectedId) >= 0;
 
@@ -42,24 +44,33 @@ function InvoiceList() {
                             }
                         </ListGroup>
                         <div className="d-flex flex-row mt-2">
-                            <Button
-                                onClick={() => history.push('/add')}
-                            >
-                                Add
-                            </Button>
-                            <Button
-                                className="ml-2"
-                                onClick={() => history.push(`/edit/${selectedId}`)}
-                                disabled={!selectedInList}
-                            >
-                                Edit
-                            </Button>
-                            <Button
-                                className="ml-2"
-                                disabled={!selectedInList}
-                            >
-                                Delete
-                            </Button>
+                            {
+                                deletePending ? (
+                                    <Spinner />
+                                ) : (
+                                    <>
+                                        <Button
+                                            onClick={() => history.push('/add')}
+                                        >
+                                            Add
+                                        </Button>
+                                        <Button
+                                            className="ml-2"
+                                            onClick={() => history.push(`/edit/${selectedId}`)}
+                                            disabled={!selectedInList}
+                                        >
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            className="ml-2"
+                                            disabled={!selectedInList}
+                                            onClick={() => deleteInvoice(selectedId)}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </>
+                                )
+                            }
                         </div>
                     </>
                 )
