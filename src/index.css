@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.standard-text-input {
+  max-width: 30em;
+}
+
+.standard-number-input {
+  max-width: 10em;
+}
+
+.standard-list-group-container {
+  max-width: 45em;
+}

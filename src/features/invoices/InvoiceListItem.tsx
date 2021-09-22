@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Badge, Button } from 'reactstrap';
+import { ListGroupItem, ListGroupItemHeading, ListGroupItemText, Badge } from 'reactstrap';
 
 import { Invoice } from './invoiceTypes';
 
@@ -13,11 +13,12 @@ function InvoiceListItem({ invoice, clickCallback, active }: InvoiceListItemProp
     return (
         <ListGroupItem
             active={active}
-            tag={Button}
+            tag="button"
             onClick={clickCallback}
         >
             <ListGroupItemHeading>
                 {invoice.title}
+                &nbsp;
                 <Badge pill>
                     {invoice.lineItems.length}
                 </Badge>

@@ -8,7 +8,7 @@ import InvoiceListItem from './InvoiceListItem';
 function InvoiceList() {
     const history = useHistory();
 
-    const [selectedId, setSelectedId] = useState<string>('');
+    const [selectedId, setSelectedId] = useState<string | null>(null);
 
     const {
         data: invoices = [],
@@ -18,10 +18,11 @@ function InvoiceList() {
 
     const [deleteInvoice, { isLoading: deletePending }] = useDeleteInvoiceMutation();
 
-    const selectedInList = invoices.findIndex(({ id }) => id === selectedId) >= 0;
+    const selectedInList = selectedId && invoices.findIndex(({ id }) => id === selectedId) >= 0;
 
     return (
         <div>
+            <h2>List of Invoices</h2>
             {
                 isLoading ? (
                     <Spinner/>
@@ -30,7 +31,7 @@ function InvoiceList() {
                         Error loading invoices.
                     </Alert>
                 ) : (
-                    <>
+                    <div className="standard-list-group-container">
                         <ListGroup>
                             {
                                 invoices.map((invoice) => (
@@ -38,11 +39,25 @@ function InvoiceList() {
                                         active={selectedId === invoice.id}
                                         key={invoice.id}
                                         invoice={invoice}
-                                        clickCallback={() => setSelectedId(invoice.id)}
+                                        clickCallback={() => {
+                                            if (selectedId === invoice.id) {
+                                                setSelectedId(null);
+                                            }
+                                            else {
+                                                setSelectedId(invoice.id);
+                                            }
+                                        }}
                                     />
                                 ))
                             }
                         </ListGroup>
+                        <div className="mt-2">
+                            <p>Click on a item in the list to select it. Click on it again to deselect.</p>
+                            <p>
+                                The number to the right of the title indicates the number of line items for associated
+                                invoice.
+                            </p>
+                        </div>
                         <div className="d-flex flex-row mt-2">
                             {
                                 deletePending ? (
@@ -50,6 +65,7 @@ function InvoiceList() {
                                 ) : (
                                     <>
                                         <Button
+                                            color="primary"
                                             onClick={() => history.push('/add')}
                                         >
                                             Add
@@ -64,7 +80,7 @@ function InvoiceList() {
                                         <Button
                                             className="ml-2"
                                             disabled={!selectedInList}
-                                            onClick={() => deleteInvoice(selectedId)}
+                                            onClick={() => deleteInvoice(selectedId!)}
                                         >
                                             Delete
                                         </Button>
@@ -72,7 +88,7 @@ function InvoiceList() {
                                 )
                             }
                         </div>
-                    </>
+                    </div>
                 )
             }
         </div>
