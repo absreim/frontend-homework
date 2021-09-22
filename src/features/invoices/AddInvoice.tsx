@@ -69,6 +69,15 @@ function AddInvoice() {
         });
     }
 
+    function handleDeleteLineItem() {
+        setFormState((draft) => {
+            const indexToDelete = draft.lineItems.findIndex(({ id }) => id === selectedLineItemId);
+            if (indexToDelete !== -1) {
+                draft.lineItems.splice(indexToDelete, 1);
+            }
+        });
+    }
+
     const selectedLineItem = selectedLineItemId && formState.lineItems.find((lineItem) =>
         lineItem.id === selectedLineItemId);
 
@@ -106,72 +115,83 @@ function AddInvoice() {
                                 />
                             </FormGroup>
                         </Form>
-                        <ListGroup>
+                        <div className="border p-2">
+                            <h3>Line Items</h3>
+                            <ListGroup>
+                                {
+                                    formState.lineItems.map((lineItem) => (
+                                        <ListGroupItem
+                                            active={selectedLineItemId === lineItem.id}
+                                            tag="button"
+                                            onClick={() => setSelectedLineItemId(lineItem.id)}
+                                            key={lineItem.id}
+                                        >
+                                            <ListGroupItemHeading>{lineItem.description}</ListGroupItemHeading>
+                                            <ListGroupItemText>{lineItem.amount}</ListGroupItemText>
+                                        </ListGroupItem>
+                                    ))
+                                }
+                            </ListGroup>
+                            <div className="d-flex flex-row mt-2">
+                                <Button
+                                    onClick={handleAddLineItem}
+                                >
+                                    Add
+                                </Button>
+                                <Button
+                                    className="ml-2"
+                                    disabled={!selectedLineItem}
+                                    onClick={handleDeleteLineItem}
+                                >
+                                    Delete
+                                </Button>
+                            </div>
                             {
-                                formState.lineItems.map((lineItem) => (
-                                    <ListGroupItem
-                                        active={selectedLineItemId === lineItem.id}
-                                        tag={Button}
-                                        onClick={() => setSelectedLineItemId(lineItem.id)}
-                                        key={lineItem.id}
-                                    >
-                                        <ListGroupItemHeading>{lineItem.description}</ListGroupItemHeading>
-                                        <ListGroupItemText>{lineItem.amount}</ListGroupItemText>
-                                    </ListGroupItem>
-                                ))
+                                selectedLineItem && (
+                                    <Form>
+                                        <h4 className="mt-2">Selected Line Item Details</h4>
+                                        <FormGroup>
+                                            <Label for="description">Description</Label>
+                                            <Input
+                                                required
+                                                id="description"
+                                                name="description"
+                                                value={selectedLineItem.description}
+                                                onChange={({ target }) =>
+                                                    setFormState((draft) => {
+                                                        const lineItem = draft.lineItems.find(({ id }) =>
+                                                            id === selectedLineItem.id);
+                                                        lineItem!.description = target.value;
+                                                    })}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="amount">Amount</Label>
+                                            <Input
+                                                required
+                                                type="number"
+                                                min="0"
+                                                step="0.01"
+                                                id="amount"
+                                                name="amount"
+                                                value={selectedLineItem.amount}
+                                                onChange={({ target }) =>
+                                                    setFormState((draft) => {
+                                                        const lineItem = draft.lineItems.find(({ id }) =>
+                                                            id === selectedLineItem.id);
+                                                        lineItem!.amount = target.value;
+                                                    })}
+                                            />
+                                        </FormGroup>
+                                        <Button
+                                            onClick={() => setSelectedLineItemId(null)}
+                                        >
+                                            Close
+                                        </Button>
+                                    </Form>
+                                )
                             }
-                        </ListGroup>
-                        <Button
-                            className="mt-2"
-                            onClick={handleAddLineItem}
-                        >
-                            Add Line Item
-                        </Button>
-                        {
-                            selectedLineItem && (
-                                <Form className="mt-2">
-                                    <FormGroup>
-                                        <Label for="description">Description</Label>
-                                        <Input
-                                            required
-                                            id="description"
-                                            name="description"
-                                            value={selectedLineItem.description}
-                                            onChange={({ target }) =>
-                                                setFormState((draft) => {
-                                                    const lineItem = draft.lineItems.find(({ id }) =>
-                                                        id === selectedLineItem.id);
-                                                    lineItem!.description = target.value;
-                                                })}
-                                        />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Label for="amount">Amount</Label>
-                                        <Input
-                                            required
-                                            type="number"
-                                            min="0"
-                                            step="0.01"
-                                            id="amount"
-                                            name="amount"
-                                            value={selectedLineItem.amount}
-                                            onChange={({ target }) =>
-                                                setFormState((draft) => {
-                                                    const lineItem = draft.lineItems.find(({ id }) =>
-                                                        id === selectedLineItem.id);
-                                                    lineItem!.amount = target.value;
-                                                })}
-                                        />
-                                    </FormGroup>
-                                    <Button
-                                        className="mt-2"
-                                        onClick={() => setSelectedLineItemId(null)}
-                                    >
-                                        Close
-                                    </Button>
-                                </Form>
-                            )
-                        }
+                        </div>
                         <div className="d-flex flex-row mt-2">
                             {
                                 isLoading ? (
